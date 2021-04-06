@@ -18,15 +18,15 @@ public class PersistenceContext {
 
         try {
 
-//            insert1Cache(em);
+            insert1Cache(em);
 //            select1Cache(em);
 //            createEntityLazyQuery(em);
 //            updateJPAdirtyChecking(em);
 //            flushJPA(em);
-            detachJPA(em);
+//            detachJPA(em);
 
             //Commit 하는 시점에 영속성에 들어가있는 객체가 쿼리로 넘어감
-//            tx.commit();
+            tx.commit();
         } catch (Exception e) {
             tx.rollback();
         } finally {
@@ -44,8 +44,8 @@ public class PersistenceContext {
     }
 
     private static void flushJPA(EntityManager em) {
-        Member member200 = new Member(201L, "member201");
-        em.persist(member200);
+//        Member member200 = new Member(201L, "member201");
+//        em.persist(member200);
 
         em.flush(); //쓰기 지연 sql에 올리는거임 작업의 단위 마지막은 commit 이다!
         System.out.println("=======================");
@@ -60,11 +60,11 @@ public class PersistenceContext {
     }
 
     private static void createEntityLazyQuery(EntityManager em) {
-        Member member1 = new Member(5L, "A");
-        Member member2 = new Member(6L, "B");
+//        Member member1 = new Member(5L, "A");
+//        Member member2 = new Member(6L, "B");
 
-        em.persist(member1);
-        em.persist(member2);
+//        em.persist(member1);
+//        em.persist(member2);
         //바로 데이터베이스에 저장하는 것이 아니라 쓰기 지연 sql 저장소에 모아놨다가 commit 하는 순간에 저장
         System.out.println("============");
     }
@@ -80,7 +80,7 @@ public class PersistenceContext {
     public static void insert1Cache(EntityManager em) {
         //비영속 상태
         Member member = new Member();
-        member.setId(4L);
+        member.setId(1L);
         member.setName("Hello JPA");
 
         //영속상태
@@ -90,10 +90,10 @@ public class PersistenceContext {
         //em.detach(member);
         System.out.println("=== AFTER ===");
 
-        Member findMember = em.find(Member.class, 3L);
+//        Member findMember = em.find(Member.class, 3L);
 
-        System.out.println("findMember.getId() = " + findMember.getId());
-        System.out.println("findMember.getName() = " + findMember.getName());
+//        System.out.println("findMember.getId() = " + findMember.getId());
+//        System.out.println("findMember.getName() = " + findMember.getName());
 
     }
 }
