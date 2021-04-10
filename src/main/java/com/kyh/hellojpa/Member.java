@@ -19,26 +19,16 @@ import javax.persistence.*;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MEMBER_ID")
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "USERNAME")
+    private String username;
 
-//    private Integer age;
-//
-//    @Enumerated(EnumType.STRING)
-//    private RoleType roleType;
-//
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date createdDate;
-//
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date lastModifiedDate;
-//
-//    //LocalDate LocalDateTime은 @Temporal 필요없음.
-//    private LocalDate test1;
-//    private LocalDateTime test2;
-//
-//    @Lob
-//    private String description;
+//    @Column(name = "TEAM_ID")
+//    private Long teamId;
+
+    @ManyToOne  //멤버 입장에서는 N 팀 입장에서는 1
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 }

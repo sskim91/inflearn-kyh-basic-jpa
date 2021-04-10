@@ -18,12 +18,20 @@ public class PersistenceContext {
 
         try {
 
-            insert1Cache(em);
+//            insert1Cache(em);
 //            select1Cache(em);
 //            createEntityLazyQuery(em);
 //            updateJPAdirtyChecking(em);
 //            flushJPA(em);
 //            detachJPA(em);
+
+            //비영속 상태
+            Member member = new Member();
+            member.setUsername("Hello JPA");
+
+            System.out.println("=== BEFORE ===");
+            em.persist(member); //id generatedvalue 전략이 identity 인경우는 먼저 쿼리가 날라감.
+            System.out.println("=== AFTER ===");
 
             //Commit 하는 시점에 영속성에 들어가있는 객체가 쿼리로 넘어감
             tx.commit();
@@ -37,7 +45,7 @@ public class PersistenceContext {
 
     private static void detachJPA(EntityManager em) {
         Member findMember = em.find(Member.class, 5L);
-        findMember.setName("UPDATE");   //변경감지
+        findMember.setUsername("UPDATE");   //변경감지
 
         em.detach(findMember);  ///준영속 상태로 만듬
         //업데이트 쿼리가 날라가지 않는다.
@@ -54,7 +62,7 @@ public class PersistenceContext {
     private static void updateJPAdirtyChecking(EntityManager em) {
 
         Member findMember = em.find(Member.class, 5L);
-        findMember.setName("UPDATE");   //변경감지
+        findMember.setUsername("UPDATE");   //변경감지
         //JPA는 엔티티를 영속성 컨텍스트에 보관할 때, 최초 상태를 복사해서 저장해 두는데 이걸 스냅샷이라고함.
         //그리고 플러시 시점에 스냅샷과 엔티티를 비교해서 변경된 엔티티를 찾아서 update 한다.
     }
@@ -70,9 +78,9 @@ public class PersistenceContext {
     }
 
     private static void select1Cache(EntityManager em) {
+        System.out.println("========BEFORE=======");
         Member findMember1 = em.find(Member.class, 1L);
         Member findMember2 = em.find(Member.class, 1L);
-
         //영속 엔티티의 동일성 보장
         System.out.println("영속 엔티티의 동일성 보장 = " + (findMember1 == findMember2));
     }
@@ -80,14 +88,15 @@ public class PersistenceContext {
     public static void insert1Cache(EntityManager em) {
         //비영속 상태
         Member member = new Member();
-        member.setId(1L);
-        member.setName("Hello JPA");
+//        member.setId(1L);
+        member.setUsername("Hello JPA");
 
         //영속상태
         System.out.println("=== BEFORE ===");
         em.persist(member);
         //준영속상태
         //em.detach(member);
+        System.out.println("member.getId() = " + member.getId());
         System.out.println("=== AFTER ===");
 
 //        Member findMember = em.find(Member.class, 3L);

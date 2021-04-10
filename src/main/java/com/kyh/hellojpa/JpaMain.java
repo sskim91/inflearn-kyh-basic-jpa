@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 /**
  * Created by sskim on 2021/04/03
@@ -22,25 +21,28 @@ public class JpaMain {
         tx.begin();
 
         try {
-//            Member member = new Member();
-//            member.setId(1L);
-//            member.setName("Hello");
-//            em.persist(member);
 
-            //수정
-//            Member findMember = em.find(Member.class, 1L);
-//            findMember.setName("HelloJPA");
+            //저장
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            //JPA는 대상이 테이블이 아니라 객체가 대상이된다.
-            //JPQL이란 객체를 대상으로 하는 객체지향 쿼리라고 보면된다.
-            List<Member> result = em.createQuery("select m from Member  as m", Member.class)
-                    .setFirstResult(0)
-                    .setMaxResults(10)
-                    .getResultList();
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeam(team);
+            em.persist(member);
 
-            for (Member member : result) {
-                System.out.println("member = " + member.getName());
-            }
+            em.flush();
+            em.clear();
+
+            //조회시 이렇게 해야됨.
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam.toString());
+
+            //
+            Team newTeam = em.find(Team.class, 100L);
+            findMember.setTeam(newTeam);
 
             tx.commit();
         } catch (Exception e) {
