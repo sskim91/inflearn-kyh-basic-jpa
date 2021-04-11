@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 /**
  * Created by sskim on 2021/04/03
@@ -35,14 +36,10 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            //조회시 이렇게 해야됨.
             Member findMember = em.find(Member.class, member.getId());
-            Team findTeam = findMember.getTeam();
-            System.out.println("findTeam = " + findTeam.toString());
+            List<Member> members = findMember.getTeam().getMembers();
 
-            //
-            Team newTeam = em.find(Team.class, 100L);
-            findMember.setTeam(newTeam);
+            members.forEach(System.out::println);
 
             tx.commit();
         } catch (Exception e) {
