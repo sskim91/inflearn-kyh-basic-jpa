@@ -30,16 +30,22 @@ public class JpaMain {
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setTeam(team);
+            member.changeTeam(team); //**
             em.persist(member);
+
+            //연관관계 주인이 아닌쪽에서도 사용 가능
+            //본인이 정하기 나름. 주인인 쪽에서 하는 게 편해보인다.
+//            team.addMember(member);
 
             em.flush();
             em.clear();
 
-            Member findMember = em.find(Member.class, member.getId());
+            Member findMember = em.find(Member.class, member.getId());  //flush와 clear 없으면 1차 캐시
             List<Member> members = findMember.getTeam().getMembers();
 
+            System.out.println("===============");
             members.forEach(System.out::println);
+            System.out.println("===============");
 
             tx.commit();
         } catch (Exception e) {
