@@ -40,4 +40,11 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<MemberProduct> memberProducts = new ArrayList<>();
+
+    //연관관계 편의 메서드 생성
+    //JPA 상태를 변경하는 것은 setter 를 잘 안씀. 로직이 들어가면 새로 만듬.
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
+    }
 }
