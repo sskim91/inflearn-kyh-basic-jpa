@@ -23,29 +23,19 @@ public class JpaMain {
 
         try {
 
-            //저장
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
+            Movie movie = new Movie();
+            movie.setDirector("aaaa");
+            movie.setActor("bbbb");
+            movie.setName("바람과함께사라지다.");
+            movie.setPrice(10000);
 
-            Member member = new Member();
-            member.setUsername("member1");
-            member.changeTeam(team); //**
-            em.persist(member);
-
-            //연관관계 주인이 아닌쪽에서도 사용 가능
-            //본인이 정하기 나름. 주인인 쪽에서 하는 게 편해보인다.
-//            team.addMember(member);
+            em.persist(movie);
 
             em.flush();
             em.clear();
 
-            Member findMember = em.find(Member.class, member.getId());  //flush와 clear 없으면 1차 캐시
-            List<Member> members = findMember.getTeam().getMembers();
-
-            System.out.println("===============");
-            members.forEach(System.out::println);
-            System.out.println("===============");
+            Movie findMovie = em.find(Movie.class, movie.getId());
+            System.out.println("findMovie = " + findMovie);
 
             tx.commit();
         } catch (Exception e) {
