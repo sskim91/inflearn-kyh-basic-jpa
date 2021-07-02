@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Team {
+public class Team extends BaseEntity {
 
     @Id
     @GeneratedValue
