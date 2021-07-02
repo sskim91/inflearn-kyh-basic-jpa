@@ -1,4 +1,4 @@
-package com.kyh.hellojpa;
+package com.kyh.hellojpa.domain;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

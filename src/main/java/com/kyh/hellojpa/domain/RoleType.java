@@ -1,4 +1,4 @@
-package com.kyh.hellojpa;
+package com.kyh.hellojpa.domain;
 
 /**
  * Created by sskim on 2021/04/06

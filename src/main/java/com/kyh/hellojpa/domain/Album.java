@@ -1,4 +1,4 @@
-package com.kyh.hellojpa;
+package com.kyh.hellojpa.domain;
 
 import javax.persistence.Entity;
 
@@ -7,8 +7,8 @@ import javax.persistence.Entity;
  * Github : http://github.com/sskim91
  */
 @Entity
-public class Book extends Item {
+public class Album extends Item {
 
-    private String author;
-    private String isbn;
+    private String artist;
+
 }

@@ -1,4 +1,4 @@
-package com.kyh.hellojpa;
+package com.kyh.hellojpa.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
