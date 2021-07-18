@@ -27,12 +27,28 @@ public class Member extends BaseEntity {
     @Column(name = "USERNAME")
     private String username;
 
-//    @Column(name = "TEAM_ID")
-//    private Long teamId;
-
     @ManyToOne  //멤버 입장에서는 N 팀 입장에서는 1
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    @Embedded
+    private Period workPeriod;
+
+    @Embedded
+    private Address homeAddress;
+
+    //한 엔티티에서 같은 값 타입을 사용하려면 칼럼명이 중복되기때문에
+    //@AttributeOverrides, @AttributeOverride를 사용해서 칼럼명 속성을 재정의
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city",
+                    column = @Column(name = "WORK_CITY")),
+            @AttributeOverride(name = "street",
+                    column = @Column(name = "WORK_STREET")),
+            @AttributeOverride(name = "zipcode",
+                    column = @Column(name = "WORK_ZIPCODE"))
+    })
+    private Address workAddress;
 
 //    @OneToOne
 //    @JoinColumn(name = "LOCKER_ID")
