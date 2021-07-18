@@ -7,7 +7,11 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static javax.persistence.FetchType.*;
 
 /**
  * Created by sskim on 2021/04/03
@@ -27,7 +31,7 @@ public class Member extends BaseEntity {
     @Column(name = "USERNAME")
     private String username;
 
-    @ManyToOne  //멤버 입장에서는 N 팀 입장에서는 1
+    @ManyToOne(fetch = LAZY)  //멤버 입장에서는 N 팀 입장에서는 1
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
@@ -49,6 +53,21 @@ public class Member extends BaseEntity {
                     column = @Column(name = "WORK_ZIPCODE"))
     })
     private Address workAddress;
+
+    @ElementCollection  //값 타입 컬렉션이란걸 알려줌
+    @CollectionTable(name = "FAVORITE_FOOD",
+            joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    @Column(name = "FOOD_NAME")
+    private Set<String> favoriteFoods = new HashSet<>();
+
+//    @ElementCollection
+//    @CollectionTable(name = "ADDRESS",
+//            joinColumns = @JoinColumn(name = "MEMBER_ID"))
+//    private List<Address> addressHistory = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "MEMBER_ID")
+    private List<AddressEntity> addressHistory = new ArrayList<>();
 
 //    @OneToOne
 //    @JoinColumn(name = "LOCKER_ID")
