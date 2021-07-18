@@ -1,5 +1,7 @@
 package com.kyh.hellojpa;
 
+import com.kyh.hellojpa.domain.Address;
+
 /**
  * Created by sskim on 2021/07/18
  * Github : http://github.com/sskim91
@@ -24,6 +26,18 @@ public class ValueMain {
 //
 //        System.out.println("a = " + a);
 //        System.out.println("b = " + b);
+
+        int a = 10;
+        int b = 10;
+        System.out.println("a == b: "+ (a == b));
+
+        Address address1 = new Address("city", "street", "zipcode");
+        Address address2 = new Address("city", "street", "zipcode");
+
+        System.out.println("address1 == address2: "+ (address1 == address2));
+
+        //Object의 equals는 == (동일성) 비교를 하기때문에 equals를 재정의해줘야한다.
+        System.out.println("address1 equals address2: "+ (address1.equals(address2)));
 
     }
 }

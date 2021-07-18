@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
  */
 @Embeddable
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Period {

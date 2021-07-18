@@ -1,9 +1,6 @@
 package com.kyh.hellojpa.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 
@@ -13,9 +10,9 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Address {
 
     private String city;
